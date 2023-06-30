@@ -1,2 +1,3 @@
-# cbox
-C/C++ library management system
+# CBOX
+
+![](./image/cbox.png)
