@@ -16,4 +16,4 @@ setup(
 if os.name == "nt":
     os.makedirs("C:\\cbox\\includes", exist_ok=True)
 else:
-    os.makedirs(f"{os.environ["HOME"]}/.cbox/includes", exist_ok=True)
+    os.makedirs(f"{os.path.expanduser("~")}/.cbox/includes", exist_ok=True)
