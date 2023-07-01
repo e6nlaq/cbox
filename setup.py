@@ -1,5 +1,5 @@
 from setuptools import setup
-import module.__about__ as info
+import cbox.__about__ as info
 import os
 
 setup(
