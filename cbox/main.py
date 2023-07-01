@@ -17,15 +17,26 @@ def main() -> None:
         "command",
         type=str,
         help="Runtime Options See README for details.",
-        choices=["version", "install"],
+        choices=["version", "install", "list", "clean"],
     )
 
+    parser.add_argument(
+        "-y",
+        "--yes",
+        action="store_true",
+        default=False,
+        help="Attaching this flag forces it to run",
+    )
     args = parser.parse_args()
+
+    with open(f"{path}/packs.json") as f:
+        pack: dict = json.load(f)
+
     if args.command == "version":
         print(info.__version__)
         exit(0)
     elif args.command == "install":
-        inp = input("Enter the repository you wish to install.\n> ")
+        inp = input("Enter the repository you wish to install.\n>> ")
         installs = inp.split(" ")
         if os.name == "nt":
             os.chdir("C:\\cbox\\tmp")
@@ -34,6 +45,7 @@ def main() -> None:
 
         success = 0
         skip = 0
+
         for x in installs:
             print(f"Installing {x}...")
             if requests.get(f"https://github.com/{x}").status_code != 200:
@@ -42,27 +54,35 @@ def main() -> None:
             else:
                 os.system(f"git clone https://github.com/{x} --recursive")
                 repo = cutrepo(x)
+
+                with open(f"{repo}/cbox.json") as f:
+                    d: dict = json.load(f)
+
                 if os.path.isfile(f"{repo}/cbox.json"):
-                    with open(f"{repo}/cbox.json") as f:
-                        d: dict = json.load(f)
-
-                    with open(f"{path}/packs.json") as f:
-                        pack: dict = json.load(f)
-
                     if not os.path.isdir(repo + "/" + d["include"]):
                         print("Error: repository not for cbox")
                         continue
 
-                    if not x in pack:
-                        pack[x] = {
-                            "version": d["version"],
-                            "description": d["description"],
-                            "author": d["author"],
-                            "files": [],
-                        }
-                    elif version_check(d["version"], pack[x]["version"]):
+                    if not args.yes and (
+                        version_check(d["version"], pack[x]["version"])
+                        or pack[x]["version"] == d["version"]
+                    ):
+                        print(
+                            "Info: No update\n      To suppress this, add the `-y` option"
+                        )
                         skip += 1
                         continue
+
+                    if x in pack:
+                        for file in pack[x]["files"]:
+                            rmtree(file)
+
+                    pack[x] = {
+                        "version": d["version"],
+                        "description": d["description"],
+                        "author": d["author"],
+                        "files": [],
+                    }
 
                     for req in d["requests"]:
                         installs.append(req)
@@ -89,6 +109,9 @@ def main() -> None:
             f"Executed: {len(installs)}, Success: {success}, Failure: {len(installs)-success-skip}, Skip: {skip}"
         )
         print("------------------------------------------------------")
+    elif args.command == "list":
+        for x in pack.keys():
+            print(x + "@" + pack[x]["version"])
 
 
 if __name__ == "__main__":
