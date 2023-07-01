@@ -5,7 +5,7 @@ import os
 setup(
     name=info.__package_name__,
     version=info.__version__,
-    packages=["module"],
+    packages=["cbox"],
     # 依存ライブラリ
     install_requires=["argparse", "requests"],
     license=info.__license__,
