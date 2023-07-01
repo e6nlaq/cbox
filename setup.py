@@ -1,5 +1,6 @@
 from setuptools import setup
 import cbox.__about__ as info
+from cbox.path import path
 import os
 
 setup(
@@ -14,6 +15,17 @@ setup(
 )
 
 if os.name == "nt":
-    os.makedirs("C:\\cbox\\includes", exist_ok=True)
+    os.makedirs(path + "includes", exist_ok=True)
+    os.makedirs(path + "tmp", exist_ok=True)
+
+    f = open(path + "packs.json", "w")
+    f.write("{}")
+    f.close()
+
 else:
-    os.makedirs(os.path.expanduser("~") + "/.cbox/includes", exist_ok=True)
+    os.makedirs(path + "includes", exist_ok=True)
+    os.makedirs(path + "tmp", exist_ok=True)
+
+    f = open(path + "packs.json", "w")
+    f.write("{}")
+    f.close()
