@@ -44,7 +44,7 @@ def main() -> None:
                 ):
                     for f in os.listdir(f"{repo}/includes"):
                         shutil.move(
-                            os.path.join(f"{repo}/includes", f), f"{path}/includes"
+                            os.path.join(f"{repo}/includes", f), f"{path}includes"
                         )
                     success += 1
                 else:
