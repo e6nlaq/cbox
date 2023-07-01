@@ -1,44 +1,7 @@
-import itertools
-import time
-import sys
-from concurrent.futures import ThreadPoolExecutor
-from typing import TypeVar
+import json
 
-T = TypeVar("T")
+a = {}
 
+a["a"] = {"a": 111}
 
-def spinner(func: T):
-    running = True
-
-    # runningの間ぐるぐるを表示する
-    def spin():
-        chars = itertools.cycle(r"/-\|")
-        while running:
-            sys.stdout.write("\b" + next(chars))
-            sys.stdout.flush()
-            time.sleep(0.2)
-        sys.stdout.write("\b")
-        sys.stdout.flush()
-
-    parllrel: T
-
-    # 並列処理
-    def parallel(*arg, **kwarg):
-        nonlocal running
-        with ThreadPoolExecutor(2) as executor:
-            executor.submit(spin)
-            future = executor.submit(func, *arg, **kwarg)
-            result = future.result()
-            running = False
-        return result
-
-    return parallel
-
-
-@spinner
-def main():
-    time.sleep(10)
-    print("AA")
-
-
-main()
+print(json.dumps(a, indent=4))
