@@ -10,7 +10,7 @@ setup(
     install_requires=["argparse", "requests"],
     license=info.__license__,
     author=info.__author__,
-    entry_points={"console_scripts": ["cbox=module.main:main"]},
+    entry_points={"console_scripts": ["cbox=cbox.main:main"]},
 )
 
 if os.name == "nt":

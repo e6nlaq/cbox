@@ -1,5 +1,5 @@
 import argparse
-import __about__ as info
+import cbox.__about__ as info
 import requests
 
 
