@@ -1,2 +1,4 @@
 .vscode/
 __pycache__/
+install.bat
+*.egg-info/

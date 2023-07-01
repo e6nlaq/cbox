@@ -5,12 +5,7 @@ import shutil
 
 import cbox.__about__ as info
 from cbox.path import path
-from cbox.filename import cutrepo
-
-
-def tmp_clear() -> None:
-    shutil.rmtree(path + "tmp")
-    os.mkdir(path + "tmp")
+from cbox.file import cutrepo, rmtree
 
 
 def main() -> None:
@@ -35,6 +30,7 @@ def main() -> None:
         else:
             os.chdir(os.path.expanduser("~") + "/.cbox/tmp")
 
+        success = 0
         for x in installs:
             print(f"Installing {x}...")
             if requests.get(f"https://github.com/{x}").status_code != 200:
@@ -50,11 +46,18 @@ def main() -> None:
                         shutil.move(
                             os.path.join(f"{repo}/includes", f), f"{path}/includes"
                         )
+                    success += 1
                 else:
                     print("Error: repository not for cbox")
                     continue
 
-        tmp_clear()
+        os.chdir(path)
+        rmtree(f"{path}/tmp")
+        print("------------------------------------------------------")
+        print(
+            f"Executed: {len(installs)}, Success: {success}, Failure: {len(installs)-success}"
+        )
+        print("------------------------------------------------------")
 
 
 if __name__ == "__main__":

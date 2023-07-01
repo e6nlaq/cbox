@@ -14,7 +14,6 @@ def rmtree(top):
             os.remove(filename)
         for name in dirs:
             os.rmdir(os.path.join(root, name))
-    os.rmdir(top)
 
 
 if __name__ == "__main__":
