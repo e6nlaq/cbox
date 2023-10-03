@@ -1,3 +1,0 @@
-# CBOX
-
-![](./image/cbox.png)
