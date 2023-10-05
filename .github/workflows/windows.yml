@@ -25,4 +25,7 @@ jobs:
           - name: Run Test
             shell: powershell
             run: |
+              cd test
+              cd build
+              ls
               ./tmp
