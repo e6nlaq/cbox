@@ -1,8 +1,20 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(algocpp_math_test CXX)
+project(cbox_test CXX)
 set(CMAKE_CXX_STANDARD 20)
 
+if(WIN32){
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+}
+
 add_executable(tmp tmp.cpp)
+
 
 target_link_libraries(tmp gtest_main gtest)
