@@ -21,8 +21,6 @@ jobs:
               mkdir build
               cd build
               cmake ..
-              make
-              cd ../
 
           - name: Run Test
             shell: powershell
