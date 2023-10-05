@@ -42,4 +42,4 @@ jobs:
     - name: Run Tests
       run: |
         cd test/build
-        ./tmp
+        ./is_option
