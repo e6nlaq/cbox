@@ -8,12 +8,14 @@
 
 ****************************************************************/
 
+// Program Reference (Best Answer)
+// https://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q11199407356
+
 #ifndef CBOX_NOTICE_HPP
 #define CBOX_NOTICE_HPP
 
 #include <string>
 #include <iostream>
-#include <tchar.h>
 #include <stdio.h>
 
 #if defined(_WIN32) || defined(_WIN64)
@@ -21,11 +23,12 @@
 // Windows
 
 #include <windows.h>
+#include <tchar.h>
 
 namespace cbox
 {
 
-	void addTrayIcon(HWND hWnd)
+	void __addTrayIcon(HWND hWnd)
 	{
 		NOTIFYICONDATA nid{};
 		nid.cbSize = sizeof(nid);
@@ -41,7 +44,7 @@ namespace cbox
 	void notice(T title, T message)
 	{
 		HWND hwnd = ::GetConsoleWindow();
-		addTrayIcon(hwnd);
+		__addTrayIcon(hwnd);
 		if (hwnd)
 		{
 			NOTIFYICONDATA nid{};
@@ -63,12 +66,19 @@ namespace cbox
 
 // UNIX
 
+template <typename T>
+inline constexpr T _T(T x) noexcept
+{
+	return x;
+}
+
 namespace cbox
 {
+
 	template <typename T>
-	void notice(T title, T message)
+	inline void notice(T title, T message) noexcept
 	{
-		// NOTE: Show notifications for Windows only
+		// Show notifications for Windows only
 	}
 }
 

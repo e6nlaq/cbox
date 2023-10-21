@@ -20,7 +20,7 @@ namespace cbox
 {
 	std::unordered_set<std::string> command_options;
 	std::unordered_map<std::string, std::string> short_commands = {
-		{"v", "version"}};
+		{"v", "version"}, {"h", "help"}};
 
 	inline std::string is_option(std::string s)
 	{

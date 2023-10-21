@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+# Temp File
+test.cpp
+
 # VSCode Directory
 .vscode/
 include/

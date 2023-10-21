@@ -49,6 +49,8 @@ namespace cbox
 
 #endif
 
+	// null device path
+
 #if defined(_WIN32) || defined(_WIN64)
 
 	std::string null_file = "NUL";
