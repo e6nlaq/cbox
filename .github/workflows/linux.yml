@@ -42,4 +42,7 @@ jobs:
     - name: Run Tests
       run: |
         cd test/build
+        echo is_option
         ./is_option
+        echo options_check
+        ./options_check
