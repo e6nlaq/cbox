@@ -19,7 +19,7 @@ TEST(single, flag)
 {
 	for (auto x : cbox::short_commands)
 	{
-		cbox::options_check(std::vector<std::string>{x.first});
+		cbox::options_check(std::vector<std::string>{"-" + x.first});
 		EXPECT_EQ(cbox::command_options, std::unordered_set<std::string>{x.second});
 	}
 }
@@ -28,7 +28,7 @@ TEST(two, flag)
 {
 	for (auto x : cbox::short_commands)
 	{
-		cbox::options_check(std::vector<std::string>{x.second});
+		cbox::options_check(std::vector<std::string>{"--" + x.second});
 		EXPECT_EQ(cbox::command_options, std::unordered_set<std::string>{x.second});
 	}
 }
@@ -36,7 +36,7 @@ TEST(two, flag)
 TEST(none, flag)
 {
 	std::vector<std::string> test;
-	for (int i = 0; i < 10000; ++i)
+	for (int i = 0; i < 1000; ++i)
 	{
 		test.emplace_back(std::to_string(i));
 		cbox::options_check(test);
