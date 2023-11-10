@@ -13,6 +13,7 @@
 #include <string>
 #include <utility>
 #include <algorithm>
+#include <cstdint>
 #include "../version_class.hpp"
 #include <algocpp/string.hpp>
 
@@ -27,6 +28,8 @@ std::vector<std::uint64_t> format(std::string s)
 
 	std::transform(v.begin(), v.end(), std::back_inserter(result), [](std::string x)
 				   { return std::stoull(x); });
+
+	return result;
 }
 
 TEST(inequality_sign, left)
