@@ -69,4 +69,4 @@ jobs:
         echo comparison_version
         echo =================================================================
 
-        ./compare_version
+        ./comparison_version
