@@ -32,11 +32,17 @@ std::vector<std::uint64_t> format(std::string s)
 	return result;
 }
 
+// =================================================================
+//
+// Start Test Cases
+//
+// =================================================================
+
 TEST(inequality_sign, left)
 {
 	for (std::size_t i = 0; i < tests.size(); ++i)
 	{
-		EXPECT_TRUE(cbox::comparison_version(format(tests[i].first), format(tests[i].second), [](std::uint64_t a, std::uint64_t b)
+		EXPECT_TRUE(cbox::comparison_version(format(tests[i].second), format(tests[i].first), [](std::uint64_t a, std::uint64_t b)
 											 { return a > b; }));
 	}
 }
@@ -45,7 +51,7 @@ TEST(inequality_sign, right)
 {
 	for (std::size_t i = 0; i < tests.size(); ++i)
 	{
-		EXPECT_TRUE(cbox::comparison_version(format(tests[i].second), format(tests[i].first), [](std::uint64_t a, std::uint64_t b)
+		EXPECT_TRUE(cbox::comparison_version(format(tests[i].first), format(tests[i].second), [](std::uint64_t a, std::uint64_t b)
 											 { return a < b; }));
 	}
 }
@@ -54,14 +60,14 @@ TEST(inequality_sign, equal_left)
 {
 	for (std::size_t i = 0; i < tests.size(); ++i)
 	{
-		EXPECT_TRUE(cbox::comparison_version(format(tests[i].first), format(tests[i].second), [](std::uint64_t a, std::uint64_t b)
-											 { return a <= b; }));
+		auto func = [](std::uint64_t a, std::uint64_t b)
+		{ return a >= b; };
 
-		EXPECT_TRUE(cbox::comparison_version(format(tests[i].first), format(tests[i].first), [](std::uint64_t a, std::uint64_t b)
-											 { return a <= b; }));
+		EXPECT_TRUE(cbox::comparison_version(format(tests[i].second), format(tests[i].first), func));
 
-		EXPECT_TRUE(cbox::comparison_version(format(tests[i].second), format(tests[i].second), [](std::uint64_t a, std::uint64_t b)
-											 { return a <= b; }));
+		EXPECT_TRUE(cbox::comparison_version(format(tests[i].first), format(tests[i].first), func));
+
+		EXPECT_TRUE(cbox::comparison_version(format(tests[i].second), format(tests[i].second), func));
 	}
 }
 
@@ -69,13 +75,13 @@ TEST(inequality_sign, equal_right)
 {
 	for (std::size_t i = 0; i < tests.size(); ++i)
 	{
-		EXPECT_TRUE(cbox::comparison_version(format(tests[i].second), format(tests[i].first), [](std::uint64_t a, std::uint64_t b)
-											 { return a >= b; }));
+		auto func = [](std::uint64_t a, std::uint64_t b)
+		{ return a <= b; };
 
-		EXPECT_TRUE(cbox::comparison_version(format(tests[i].first), format(tests[i].first), [](std::uint64_t a, std::uint64_t b)
-											 { return a >= b; }));
+		EXPECT_TRUE(cbox::comparison_version(format(tests[i].first), format(tests[i].second), func));
 
-		EXPECT_TRUE(cbox::comparison_version(format(tests[i].second), format(tests[i].second), [](std::uint64_t a, std::uint64_t b)
-											 { return a >= b; }));
+		EXPECT_TRUE(cbox::comparison_version(format(tests[i].first), format(tests[i].first), func));
+
+		EXPECT_TRUE(cbox::comparison_version(format(tests[i].second), format(tests[i].second), func));
 	}
 }
