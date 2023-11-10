@@ -19,6 +19,7 @@
 #include "version.hpp"
 #include "system.hpp"
 #include "console.hpp"
+#include "init.hpp"
 
 // #define CBOX_DEBUG
 
@@ -62,6 +63,10 @@ int main(int argc, char const *argv[])
 		cbox::console::error("under construction");
 
 		return 1;
+	}
+	else if (args[1] == "init")
+	{
+		return cbox::init();
 	}
 	else
 	{
