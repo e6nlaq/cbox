@@ -48,11 +48,13 @@ namespace cbox
 					continue;
 				}
 
-				if (!func(a[i], b[i]))
+				if (func(a[i], b[i]))
+					return true;
+				else
 					return false;
 			}
 
-			return true;
+			return false;
 		}
 	}
 
