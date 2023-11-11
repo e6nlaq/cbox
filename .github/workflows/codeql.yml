@@ -60,6 +60,20 @@ jobs:
         # For more details on CodeQL's query packs, refer to: https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
         # queries: security-extended,security-and-quality
 
+    - name: Install Google Test
+      run: |
+        git clone https://github.com/google/googletest.git -b v1.14.0
+        cd googletest
+        mkdir build
+        cd build
+        cmake ..
+        make
+        cd ../
+        sudo cp -r ./googlemock/include/gmock /usr/local/include/gmock
+        sudo cp -r ./googletest/include/gtest /usr/local/include/gtest
+        sudo cp ./build/lib/*.a /usr/local/lib/
+        cd ../
+
 
     # Autobuild attempts to build any compiled languages (C/C++, C#, Go, Java, or Swift).
     # If this step fails, then you should remove it and run the build manually (see below)
