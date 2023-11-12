@@ -20,7 +20,7 @@ namespace cbox
 	{
 		inline void line_delete(bool newline = false) noexcept
 		{
-			std::cout << "\e[2K\e[G";
+			std::cout << "\x1b[2K\x1b[G";
 
 			if (newline)
 				std::cout << std::endl;
@@ -31,7 +31,7 @@ namespace cbox
 		inline void __log_print(std::string title, std::string message, std::ostream &out, bool newline = false) noexcept
 		{
 			line_delete();
-			out << "[ \e[1m" << title << "\e[m ] " << message;
+			out << "[ \x1b[1m" << title << "\x1b[m ] " << message;
 
 			if (newline)
 				out << std::endl;
@@ -41,27 +41,27 @@ namespace cbox
 
 		inline void run(std::string message) noexcept
 		{
-			__log_print("\e[5mRUN", message, std::cout);
+			__log_print("\x1b[5mRUN", message, std::cout);
 		}
 
 		inline void error(std::string message) noexcept
 		{
-			__log_print("\e[31mERROR", message, std::cerr, true);
+			__log_print("\x1b[31mERROR", message, std::cerr, true);
 		}
 
 		inline void warning(std::string message) noexcept
 		{
-			__log_print("\e[33mWARN", message, std::cerr, true);
+			__log_print("\x1b[33mWARN", message, std::cerr, true);
 		}
 
 		inline void ok(std::string message) noexcept
 		{
-			__log_print("\e[32mOK", message, std::cout, true);
+			__log_print("\x1b[32mOK", message, std::cout, true);
 		}
 
 		inline void log(std::string message) noexcept
 		{
-			__log_print("\e[34mLOG", message, std::cout, true);
+			__log_print("\x1b[34mLOG", message, std::cout, true);
 		}
 	}
 }
