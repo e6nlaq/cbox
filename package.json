@@ -1,0 +1,12 @@
+{
+  "name": "cbox",
+  "version": "1.0.0",
+  "description": "CBOX TypeScript Tools",
+  "main": "index.js",
+  "repository": "https://github.com/e6nlaq/cbox.git",
+  "author": "e6nlaq <120777733+e6nlaq@users.noreply.github.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.9.0"
+  }
+}

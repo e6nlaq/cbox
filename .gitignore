@@ -8,6 +8,9 @@ test.cpp
 .vscode/
 include/
 
+# npm Directory
+node_modules/
+
 # Compiled Object files
 *.slo
 *.lo
