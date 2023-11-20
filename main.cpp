@@ -27,11 +27,29 @@
 #include <algocpp/all.hpp>
 #endif
 
+#if defined(_WIN32) || defined(_WIN64)
+#include <windows.h>
+#endif
+
 int main(int argc, char const *argv[])
 {
-	// Enable escape sequence
-	std::system("");
 
+// Enable escape sequence
+#if defined(_WIN32) || defined(_WIN64)
+	// In Windows, assert works, so a blank space is not acceptable.
+	std::system("echo Test message > NUL");
+#else
+	std::system("");
+#endif
+
+// Set console character encoding
+// Reference: https://qiita.com/BlueSilverCat/items/1e5af7fdaeaf8fd2289d
+#if defined(_WIN32) || defined(_WIN64)
+	SetConsoleOutputCP(CP_UTF8);
+	setvbuf(stdout, nullptr, _IOFBF, 1024);
+#endif
+
+	// Command line arguments
 	std::vector<std::string> args(argv, argv + argc);
 	cbox::options_check(args);
 
@@ -47,9 +65,9 @@ int main(int argc, char const *argv[])
 
 	if (args[1] == "version" || cbox::command_options.contains("version"))
 	{
-		std::cout << "======================================" << std::endl;
-		std::cout << "  CBOX " << cbox::cbox_version << " / " << cbox::run_system << std::endl;
-		std::cout << "======================================" << std::endl;
+		std::cout << "===================================================================" << std::endl;
+		std::cout << "  CBOX " << cbox::cbox_version << " (Build Date: " << __DATE__ << " " << __TIME__ << ") / " << cbox::run_system << std::endl;
+		std::cout << "===================================================================" << std::endl;
 
 		if (cbox::cbox_preview)
 		{
